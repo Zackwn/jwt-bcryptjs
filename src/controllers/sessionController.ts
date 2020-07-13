@@ -5,8 +5,6 @@ import jwt from "jsonwebtoken"
 
 import "dotenv/config"
 
-import { UserProps } from "../database/models/users"
-
 class sessionController {
     async login(req: Request, res: Response) {
         try {

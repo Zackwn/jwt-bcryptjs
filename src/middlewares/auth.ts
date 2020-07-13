@@ -1,11 +1,17 @@
-import { Request, RequestHandler, Response, NextFunction } from "express"
+import { Request, Response, NextFunction } from "express"
 import jwt from "jsonwebtoken"
-import { RequestCustom } from "../../custom"
 
 import "dotenv/config"
 
-export default (reqExpress: Request, res: Response, next: NextFunction) => {
-    const auth = reqExpress.headers.authorization
+declare module "express-serve-static-core" {
+    interface Request {
+        userId: string
+    }
+}
+
+
+export default (req: Request, res: Response, next: NextFunction) => {
+    const auth = req.headers.authorization
 
     if (!auth) 
         return res.json({ "Error": "Token not provided" })
@@ -25,7 +31,6 @@ export default (reqExpress: Request, res: Response, next: NextFunction) => {
         const Payload = jwt.verify(token, String(process.env.APP_SECRET))
         const payload = (Payload as any)
 
-        const req = reqExpress as RequestCustom;
         req.userId = payload.userID
 
         next()

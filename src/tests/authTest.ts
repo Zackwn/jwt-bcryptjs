@@ -1,12 +1,9 @@
 import { Request, Response } from "express"
 import Users from "../database/models/users"
-import { RequestCustom } from "../../custom"
 
 class authTest {
-    async test(reqExpress: Request, res: Response) {
+    async test(req: Request, res: Response) {
         try {
-            const req = reqExpress as RequestCustom
-
             const user = await Users.findOne({ _id: req.userId })
             const UserRes = ( user as any )
             UserRes.password = undefined

@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import Users from "../database/models/users"
-import { PromiseProvider } from "mongoose"
 
 class userController {
     async index(req: Request, res: Response) {
